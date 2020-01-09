@@ -1,0 +1,14 @@
+Config { font = "xft:PragmataPro Mono Liga:size=10"
+       , border = NoBorder
+       , bgColor = "#2e282a"
+       , fgColor = "grey"
+       , position = TopW L 100
+       , commands = [ Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
+                    , Run StdinReader
+                    , Run Battery ["BAT 1"] 50
+       		    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%StdinReader%}{%date% | %battery%"
+       , allDesktops = True
+       }
