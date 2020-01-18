@@ -1,10 +1,12 @@
 {-# LANGUAGE LambdaCase #-}
 
 import           XMonad
+import           XMonad.Hooks.DynamicBars
 import           XMonad.Hooks.DynamicLog
 import           XMonad.Hooks.ManageDocks
-import           XMonad.Layout.Spacing
 import           XMonad.Layout.Grid
+import           XMonad.Layout.LayoutModifier
+import           XMonad.Layout.Spacing
 
 featureColor :: String
 featureColor = "#ffd972"
@@ -21,7 +23,7 @@ gapSize = 5
 main :: IO ()
 main = xmonad =<< statusBar "xmobar" myPP (const (mod1Mask, xK_b)) def
   { terminal = "kitty"
-  , modMask = mod1Mask
+  , modMask = mod4Mask
   , borderWidth = 8
   , focusedBorderColor = featureColor
   , workspaces = ["www", "dev", "talk", "etc"]
@@ -32,6 +34,7 @@ main = xmonad =<< statusBar "xmobar" myPP (const (mod1Mask, xK_b)) def
 equidistant :: Integer -> Border
 equidistant n = Border n n n n
 
+gaps :: LayoutClass l a => l a -> ModifiedLayout Spacing l a
 gaps = spacingRaw True border True border True
   where border = equidistant gapSize
 

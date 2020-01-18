@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+function copyandecho {
+    xclip -selection clipboard -t image/png -i $1
+    echo $1
+}
+
+function shootregion {
+    filename="/tmp/${1:-Screenshot-$(date | sed 's/[ :]/-/g')}.png"
+    eval $(crud)
+    import -crop $G -window root $filename
+    copyandecho $filename
+}
+
+function shootfull {
+    filename="/tmp/${1:-Screenshot-$(date | sed 's/[ :]/-/g')}.png"
+    import -window root $filename
+    copyandecho $filename
+}
+
+export -f shootregion
+export -f shootfull
