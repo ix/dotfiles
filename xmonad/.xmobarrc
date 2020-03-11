@@ -1,6 +1,6 @@
 Config { font = "xft:PragmataPro Mono Liga:size=10"
        , border = NoBorder
-       , bgColor = "#2e282a"
+       , bgColor = "#000418"
        , fgColor = "grey"
        , position = TopW L 100
        , commands = [ Run Date "%a %b %_d %Y %H:%M:%S" "date" 10

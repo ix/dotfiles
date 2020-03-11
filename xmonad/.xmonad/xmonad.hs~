@@ -1,5 +1,4 @@
 {-# LANGUAGE LambdaCase #-}
-{-# LANGUAGE UnicodeSyntax #-}
 
 import           XMonad
 import           XMonad.Hooks.DynamicBars
@@ -12,16 +11,13 @@ import           XMonad.Layout.Spacing
 import qualified Data.Map as M
 
 featureColor :: String
-featureColor = "#FC4E71"
+featureColor = "#ffd972"
 
 urgentColor :: String
 urgentColor = "#ef3e36"
 
 dimColor :: String
 dimColor = "#777"
-
-dimmerColor :: String
-dimmerColor = "#444"
 
 gapSize :: Integer
 gapSize = 5
@@ -32,7 +28,7 @@ main = xmonad =<< statusBar "xmobar" myPP (const (mod1Mask, xK_b)) def
   , modMask = mod4Mask
   , borderWidth = 8
   , focusedBorderColor = featureColor
-  , workspaces = ["i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix"]
+  , workspaces = ["www", "dev", "talk", "etc"]
   , layoutHook = avoidStruts
       ( tall ||| Full ||| gaps tall ||| gaps grid )
   , keys = myKeymap
@@ -42,7 +38,7 @@ myKeymap :: XConfig Layout -> M.Map (ButtonMask, KeySym) (X ())
 myKeymap layout = M.fromList keybinds <> keys def layout
   where keybinds =
           [
-            ((mod4Mask .|. shiftMask, xK_s), spawn "shootregion")
+            ((mod1Mask, xK_s), spawn "shootregion")
           ]
 
 equidistant :: Integer -> Border
@@ -69,6 +65,5 @@ myPP = def
       "Spacing GridRatio 1.0" -> "[#]"
   , ppSep = xmobarColor dimColor "" " ∙ "
   , ppTitle = xmobarColor dimColor ""
-  , ppHidden = id
-  , ppHiddenNoWindows = xmobarColor dimColor ""
+  , ppHiddenNoWindows = id
   }
