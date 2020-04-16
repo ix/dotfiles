@@ -1,4 +1,4 @@
-Config { font = "xft:PragmataPro Mono Liga:size=10"
+Config { font = "xft:CozetteVector:size=9"
        , border = NoBorder
        , bgColor = "#000418"
        , fgColor = "grey"
@@ -6,9 +6,10 @@ Config { font = "xft:PragmataPro Mono Liga:size=10"
        , commands = [ Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
                     , Run StdinReader
                     , Run Battery ["BAT 1"] 50
+		    , Run Com "xbacklight" ["-get"] "backlight" 50
        		    ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader%}{%date% | %battery%"
+       , template = "%StdinReader%}{%date% | %battery% |  %backlight%"
        , allDesktops = True
        }

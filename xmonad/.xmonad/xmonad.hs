@@ -8,6 +8,7 @@ import           XMonad.Hooks.ManageDocks
 import           XMonad.Layout.Grid
 import           XMonad.Layout.LayoutModifier
 import           XMonad.Layout.Spacing
+import Graphics.X11.ExtraTypes.XF86
 
 import qualified Data.Map as M
 
@@ -28,11 +29,11 @@ gapSize = 5
 
 main :: IO ()
 main = xmonad =<< statusBar "xmobar" myPP (const (mod1Mask, xK_b)) def
-  { terminal = "kitty"
+  { terminal = "urxvt"
   , modMask = mod4Mask
-  , borderWidth = 8
+  , borderWidth = 4
   , focusedBorderColor = featureColor
-  , workspaces = ["i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix"]
+  , workspaces = ["☰", "☱", "☲", "☳", "☴", "☵", "☶", "☷"]
   , layoutHook = avoidStruts
       ( tall ||| Full ||| gaps tall ||| gaps grid )
   , keys = myKeymap
@@ -43,6 +44,9 @@ myKeymap layout = M.fromList keybinds <> keys def layout
   where keybinds =
           [
             ((mod4Mask .|. shiftMask, xK_s), spawn "shootregion")
+          , ((mod4Mask, xK_p), spawn $ "dmenu_run -fn CozetteVector:size=9 -sb " ++ mconcat ["\"", featureColor, "\""])
+          , ((0, xF86XK_MonBrightnessUp), spawn "xbacklight -inc 10")
+          , ((0, xF86XK_MonBrightnessDown), spawn "xbacklight -dec 10")
           ]
 
 equidistant :: Integer -> Border
