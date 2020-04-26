@@ -22,3 +22,4 @@ function shootfull {
 
 export -f shootregion
 export -f shootfull
+export -f copyandecho
