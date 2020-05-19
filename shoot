@@ -9,14 +9,14 @@ function shootregion {
     filename="/tmp/${1:-Screenshot-$(date | sed 's/[ :]/-/g')}.png"
     eval $(crud)
     import -crop $G -window root $filename
-    convert -profile $HOME/.colors/N140HCA_EAB_01.icm $filename $filename
+    convert -profile /home/rose/.colors/N140HCA_EAB_01.icm $filename $filename
     copyandecho $filename
 }
 
 function shootfull {
     filename="/tmp/${1:-Screenshot-$(date | sed 's/[ :]/-/g')}.png"
     import -window root $filename
-    convert -profile $HOME/.colors/N140HCA_EAB_01.icm $filename $filename
+    convert -profile /home/rose/.colors/N140HCA_EAB_01.icm $filename $filename
     copyandecho $filename
 }
 

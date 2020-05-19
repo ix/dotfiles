@@ -29,7 +29,7 @@ gapSize = 5
 
 main :: IO ()
 main = xmonad =<< statusBar "xmobar" myPP (const (mod1Mask, xK_b)) def
-  { terminal = "urxvt"
+  { terminal = "termite"
   , modMask = mod4Mask
   , borderWidth = 4
   , focusedBorderColor = featureColor
@@ -44,6 +44,7 @@ myKeymap layout = M.fromList keybinds <> keys def layout
   where keybinds =
           [
             ((mod4Mask .|. shiftMask, xK_s), spawn "shootregion")
+          , ((mod4Mask .|. shiftMask, xK_e), spawn "emacsclient --create-frame")
           , ((mod4Mask, xK_p), spawn $ "dmenu_run -fn CozetteVector:size=9 -sb " ++ mconcat ["\"", featureColor, "\""])
           , ((0, xF86XK_MonBrightnessUp), spawn "xbacklight -inc 10")
           , ((0, xF86XK_MonBrightnessDown), spawn "xbacklight -dec 10")
