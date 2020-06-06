@@ -1,0 +1,1 @@
+/home/rose/.cache/wal/colors.hs
