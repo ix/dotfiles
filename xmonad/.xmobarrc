@@ -1,15 +1,21 @@
-Config { font = "xft:CozetteVector:size=9"
+Config { font = "xft:Misc Terminusmodx.Icons:style=Regular:pixelsize=12"
        , border = NoBorder
-       , bgColor = "#000418"
-       , fgColor = "grey"
+       , bgColor = "#f9f9fa"
+       , fgColor = "#3e3e3e"
        , position = TopW L 100
        , commands = [ Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
                     , Run StdinReader
-                    , Run Battery ["BAT 1"] 50
+                    , Run BatteryP ["BAT1"]
+                      [ "-t", "<acstatus>ó <left>", "--",
+                        "-O", "Â On / ",
+                        "-i", "Â On / ",
+                        "-o", "",
+                        "-P"
+                      ] 50
 		    , Run Com "xbacklight" ["-get"] "backlight" 50
        		    ]
-       , sepChar = "%"
+       , sepChar = "$"
        , alignSep = "}{"
-       , template = "%StdinReader%}{%date% | %battery% |  %backlight%"
+       , template = " $StdinReader$}{ É $date$ / $battery$ / µ $backlight$% "
        , allDesktops = True
        }
