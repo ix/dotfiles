@@ -1,0 +1,17 @@
+.button-toolbar.toggle-trash {
+  display: none !important;
+}
+
+.synced-tabs-button { display: none !important; }
+
+button.vivaldi { display: none !important; }
+
+.tab:not(.pinned) .favicon { display: none; }
+
+#browser.native.linux.normal #tabs-container.top { padding: 0; }
+
+.tabs-top:not(.mac).color-behind-tabs-on #tabs-container {
+    background-image: none;
+}
+
+.tab .close { display: none !important; }
