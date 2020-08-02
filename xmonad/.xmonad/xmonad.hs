@@ -14,7 +14,7 @@ import Colors
 import qualified Data.Map as M
 
 featureColor :: String
-featureColor = color2
+featureColor = color1
 
 urgentColor :: String
 urgentColor = color5
@@ -28,6 +28,12 @@ dimmerColor = color9
 gapSize :: Integer
 gapSize = 5
 
+superGapSize :: Integer
+superGapSize = 20
+
+modifier :: KeyMask
+modifier = mod4Mask
+
 main :: IO ()
 main = xmonad =<< statusBar "xmobar" myPP (const (mod1Mask, xK_b)) def
   { terminal = "urxvt"
@@ -36,7 +42,7 @@ main = xmonad =<< statusBar "xmobar" myPP (const (mod1Mask, xK_b)) def
   , focusedBorderColor = featureColor
   , workspaces = ["i", "ii", "iii", "iv"]
   , layoutHook = avoidStruts
-      ( tall ||| Full ||| gaps tall ||| gaps (Mirror tall) ||| gaps grid )
+      ( tall ||| Full ||| gaps tall ||| gaps (Mirror tall) ||| gaps grid ||| supergaps grid )
   , keys = myKeymap
   }
 
@@ -53,9 +59,10 @@ myKeymap :: XConfig Layout -> M.Map (ButtonMask, KeySym) (X ())
 myKeymap layout = M.fromList keybinds <> keys def layout
   where keybinds =
           [
-            ((mod4Mask .|. shiftMask, xK_s), spawn "shootregion")
-          , ((mod4Mask .|. shiftMask, xK_e), spawn "emacsclient --create-frame")
-          , ((mod4Mask, xK_p), spawn dmenu)
+            ((modifier .|. shiftMask, xK_s), spawn "shootregion")
+          , ((modifier .|. shiftMask, xK_p), spawn "snatch")
+          , ((modifier .|. shiftMask, xK_e), spawn "emacsclient --create-frame")
+          , ((modifier, xK_p), spawn dmenu)
           , ((0, xF86XK_MonBrightnessUp), spawn "xbacklight -inc 10")
           , ((0, xF86XK_MonBrightnessDown), spawn "xbacklight -dec 10")
           ]
@@ -66,6 +73,10 @@ equidistant n = Border n n n n
 gaps :: LayoutClass l a => l a -> ModifiedLayout Spacing l a
 gaps = spacingRaw True border True border True
   where border = equidistant gapSize
+
+supergaps :: LayoutClass l a => l a -> ModifiedLayout Spacing l a
+supergaps = spacingRaw True border True border True
+  where border = equidistant superGapSize
 
 tall :: Tall a
 tall = Tall 1 (3/100) (1/2)

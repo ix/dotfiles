@@ -1,11 +1,11 @@
 Config { font = "xft:Misc Terminusmodx.Icons:style=Regular:pixelsize=12"
        , border = NoBorder
-       , bgColor = "#f9f9fa"
-       , fgColor = "#3e3e3e"
+       , bgColor = "#1D2021"
+       , fgColor = "#A89984"
        , position = TopW L 100
        , commands = [ Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
                     , Run StdinReader
-                    , Run BatteryP ["BAT1"]
+                    , Run BatteryP ["BAT0", "BAT1"]
                       [ "-t", "<acstatus>ó <left>", "--",
                         "-O", "Â On / ",
                         "-i", "Â On / ",

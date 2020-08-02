@@ -1,1 +1,1 @@
-/home/rose/.cache/wal/colors.hs
+/home/ruby/.cache/wal/colors.hs
