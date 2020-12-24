@@ -5,6 +5,7 @@ import Graphics.X11.ExtraTypes.XF86
 import XMonad
 import XMonad.Hooks.DynamicBars
 import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Layout.Grid
 import XMonad.Layout.LayoutModifier
@@ -35,16 +36,18 @@ modifier :: KeyMask
 modifier = mod4Mask
 
 main :: IO ()
-main = xmonad =<< statusBar "xmobar" myPP (const (mod1Mask, xK_b)) def
-  { terminal = "urxvt"
-  , modMask = mod4Mask
-  , borderWidth = 4
-  , focusedBorderColor = featureColor
-  , workspaces = ["i", "ii", "iii", "iv"]
-  , layoutHook = avoidStruts
-      ( tall ||| Full ||| gaps tall ||| gaps (Mirror tall) ||| gaps grid ||| supergaps grid )
-  , keys = myKeymap
-  }
+main = xmonad =<< statusBar "xmobar" myPP (const (mod1Mask, xK_b)) (ewmh config)
+  where config = def
+          { terminal = "alacritty"
+          , modMask = mod4Mask
+          , borderWidth = 4
+          , focusedBorderColor = featureColor
+          , workspaces = ["i", "ii", "iii", "iv"]
+          , layoutHook = avoidStruts
+              ( Full ||| gaps tall ||| gaps (Mirror tall) ||| gaps grid ||| supergaps grid )
+          , keys = myKeymap
+          , handleEventHook = handleEventHook def <+> fullscreenEventHook
+          }
 
 dmenu :: String
 dmenu = mconcat
@@ -61,10 +64,13 @@ myKeymap layout = M.fromList keybinds <> keys def layout
           [
             ((modifier .|. shiftMask, xK_s), spawn "shootregion")
           , ((modifier .|. shiftMask, xK_p), spawn "snatch")
-          , ((modifier .|. shiftMask, xK_e), spawn "emacsclient --create-frame")
+          , ((modifier .|. shiftMask, xK_e), spawn "code")
           , ((modifier, xK_p), spawn dmenu)
           , ((0, xF86XK_MonBrightnessUp), spawn "xbacklight -inc 10")
           , ((0, xF86XK_MonBrightnessDown), spawn "xbacklight -dec 10")
+          , ((0, xF86XK_AudioRaiseVolume), spawn "amixer set Master 5%+")
+          , ((0, xF86XK_AudioLowerVolume), spawn "amixer set Master 5%-")
+          , ((0, xF86XK_AudioMute), spawn "amixer set Master toggle")
           ]
 
 equidistant :: Integer -> Border
@@ -89,7 +95,6 @@ myPP = def
   { ppCurrent = const $ xmobarColor featureColor "" "\x00e5"
   , ppUrgent = const $ xmobarColor urgentColor "" "\x00e5"
   , ppLayout = \case
-      "Tall"          -> "\x00fe"
       "Full"          -> "\x00ff"
       "Spacing Tall"  -> "\x00f6"
       "Spacing Mirror Tall" -> "\x00fc"
