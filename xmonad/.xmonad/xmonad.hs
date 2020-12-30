@@ -44,19 +44,22 @@ main = xmonad =<< statusBar "xmobar" myPP (const (mod1Mask, xK_b)) (ewmh config)
           , focusedBorderColor = featureColor
           , workspaces = ["i", "ii", "iii", "iv"]
           , layoutHook = avoidStruts
-              ( Full ||| gaps tall ||| gaps (Mirror tall) ||| gaps grid ||| supergaps grid )
+              ( Full ||| gaps tall ||| gaps (Mirror tall) ||| supergaps grid )
           , keys = myKeymap
           , handleEventHook = handleEventHook def <+> fullscreenEventHook
           }
 
-dmenu :: String
-dmenu = mconcat
-  [ "dmenu_run -fn \"Misc Terminusmodx:size=9\""
-  , " -sb " ++ mconcat ["\"", featureColor, "\""]
-  , " -nb " ++ mconcat ["\"", background, "\""]
-  , " -nf " ++ mconcat ["\"", foreground, "\""]
-  , " -sf " ++ mconcat ["\"", background, "\""]
-  ]
+rofi :: String
+rofi = "rofi -switchers drun,window -show"
+
+-- dmenu :: String
+-- dmenu = mconcat
+--   [ "dmenu_run -fn \"Misc Terminusmodx:size=9\""
+--   , " -sb " ++ mconcat ["\"", featureColor, "\""]
+--   , " -nb " ++ mconcat ["\"", background, "\""]
+--   , " -nf " ++ mconcat ["\"", foreground, "\""]
+--   , " -sf " ++ mconcat ["\"", background, "\""]
+--   ]
 
 myKeymap :: XConfig Layout -> M.Map (ButtonMask, KeySym) (X ())
 myKeymap layout = M.fromList keybinds <> keys def layout
@@ -65,7 +68,7 @@ myKeymap layout = M.fromList keybinds <> keys def layout
             ((modifier .|. shiftMask, xK_s), spawn "shootregion")
           , ((modifier .|. shiftMask, xK_p), spawn "snatch")
           , ((modifier .|. shiftMask, xK_e), spawn "code")
-          , ((modifier, xK_p), spawn dmenu)
+          , ((modifier, xK_p), spawn rofi)
           , ((0, xF86XK_MonBrightnessUp), spawn "xbacklight -inc 10")
           , ((0, xF86XK_MonBrightnessDown), spawn "xbacklight -dec 10")
           , ((0, xF86XK_AudioRaiseVolume), spawn "amixer set Master 5%+")
