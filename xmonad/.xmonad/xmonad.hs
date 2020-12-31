@@ -10,6 +10,7 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Layout.Grid
 import XMonad.Layout.LayoutModifier
 import XMonad.Layout.Spacing
+import XMonad.Util.Run
 import Colors
 
 import qualified Data.Map as M
@@ -36,7 +37,8 @@ modifier :: KeyMask
 modifier = mod4Mask
 
 main :: IO ()
-main = xmonad =<< statusBar "xmobar" myPP (const (mod1Mask, xK_b)) (ewmh config)
+main = do 
+  xmonad =<< statusBar "polybar example" myPP (const (mod1Mask, xK_b)) (ewmh config)
   where config = def
           { terminal = "alacritty"
           , modMask = mod4Mask
