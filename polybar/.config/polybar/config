@@ -30,7 +30,7 @@ alert = #bd2c40
 [bar/example]
 ;monitor = ${env:MONITOR:HDMI-1}
 width = 100%
-height = 27
+height = 24
 ;offset-x = 1%
 ;offset-y = 1%
 radius = 0.0
@@ -51,11 +51,11 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = PragmataPro Mono Liga:style=Regular:size=10;1
+font-0 = Inter V Medium:style=Regular:size=10;1
 font-1 = unifont:fontformat=truetype:size=10:antialias=false;0
 font-2 = siji:pixelsize=10;1
 
-modules-left = ewmh ;xmonad-workspaces
+modules-left = ewmh xwindow ;xmonad-workspaces
 ;modules-center = mpd
 modules-right = pulseaudio battery temperature date
 
@@ -117,7 +117,7 @@ tail = true
 
 [module/xwindow]
 type = internal/xwindow
-label = %title:0:30:...%
+label = %title:0:60:...%
 
 [module/xkeyboard]
 type = internal/xkeyboard
@@ -298,11 +298,11 @@ format-disconnected =
 type = internal/date
 interval = 5
 
-date =
-date-alt = " %Y-%m-%d"
+date = " %a"
+date-alt = " %c"
 
 time = %H:%M
-time-alt = %H:%M:%S
+time-alt = 
 
 format-prefix = 
 format-prefix-foreground = ${xrdb:foreground}
@@ -455,7 +455,9 @@ screenchange-reload = true
 ;pseudo-transparency = false
 
 [global/wm]
-margin-top = 5
-margin-bottom = 5
+; how much space on top of bar?
+margin-top = 0
+; how much space below bar
+margin-bottom = 0
 
 ; vim:ft=dosini
